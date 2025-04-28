@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fare Estimates</title>
+</head>
+<body>
+    <h2>Available Rides</h2>
+    <ul>
+    {% for price in prices %}
+        <li>
+            <a href="{{ price.deeplink }}" target="_blank">
+                {{ price.service }}: ₹{{ price.price_min }} - ₹{{ price.price_max }}
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+    <a href="/">Go Back</a>
+</body>
+</html>
