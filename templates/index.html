@@ -1,20 +1,26 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Ride Fare Estimator</title>
-</head>
-<body>
-    <h2>Enter Your Trip Details</h2>
-    <form method="POST">
-        <div>
-            <label>Pickup Address:</label>
-            <input type="text" name="pickup_address" required placeholder="e.g., Connaught Place, Delhi">
-        </div>
-        <div>
-            <label>Drop Address:</label>
-            <input type="text" name="drop_address" required placeholder="e.g., Indira Gandhi International Airport, Delhi">
-        </div>
-        <button type="submit">Get Fare Estimates</button>
-    </form>
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+  <h1>🚗 RideWise</h1>
+
+  {% if is_connected %}
+    <p>✅ Uber Connected |
+      <a href="{{ url_for('logout') }}" class="connected-link">Logout</a>
+    </p>
+  {% else %}
+    <a href="{{ url_for('login') }}" class="connect-btn">🚀 Connect with Uber</a>
+  {% endif %}
+
+  <form method="POST" action="{{ url_for('results') }}">
+    <input name="pickup" placeholder="Pickup address" required>
+    <input name="drop" placeholder="Drop address" required>
+    <button type="submit">
+      🔍 Find Now →
+    </button>
+  </form>
+
+  {% with messages = get_flashed_messages() %}
+    {% for msg in messages %}
+      <p class="flash-msg">{{ msg }}</p>
+    {% endfor %}
+  {% endwith %}
+{% endblock %}

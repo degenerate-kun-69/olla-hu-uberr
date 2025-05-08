@@ -1,19 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Fare Estimates</title>
-</head>
-<body>
-    <h2>Available Rides</h2>
-    <ul>
-    {% for price in prices %}
-        <li>
-            <a href="{{ price.deeplink }}" target="_blank">
-                {{ price.service }}: ₹{{ price.price_min }} - ₹{{ price.price_max }}
-            </a>
-        </li>
-    {% endfor %}
-    </ul>
-    <a href="/">Go Back</a>
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+<h2>Price Estimates</h2>
+<table>
+  <tr>
+    <th>Service</th><th>Min</th><th>Max</th><th>Duration</th><th>Distance</th><th>Link</th>
+  </tr>
+  {% for p in prices %}
+  <tr>
+    <td>{{ p.service }}</td>
+    <td>{{ p.price_min }}</td>
+    <td>{{ p.price_max }}</td>
+    <td>{{ p.duration or '-' }}</td>
+    <td>{{ p.distance or '-' }}</td>
+    <td><a href="{{ p.deeplink }}" target="_blank">Book</a></td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}
