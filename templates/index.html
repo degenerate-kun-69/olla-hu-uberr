@@ -1,26 +1,88 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>🚗 RideWise</h1>
+<h1>🚗 RideWise</h1>
 
-  {% if is_connected %}
-    <p>✅ Uber Connected |
-      <a href="{{ url_for('logout') }}" class="connected-link">Logout</a>
-    </p>
-  {% else %}
-    <a href="{{ url_for('login') }}" class="connect-btn">🚀 Connect with Uber</a>
-  {% endif %}
+{% if is_connected %}
+<p>✅ Uber Connected |
+  <a href="{{ url_for('logout') }}" class="connected-link">Logout</a>
+</p>
+{% else %}
+<div id="containconnecttext">
 
-  <form method="POST" action="{{ url_for('results') }}">
-    <input name="pickup" placeholder="Pickup address" required>
-    <input name="drop" placeholder="Drop address" required>
-    <button type="submit">
-      🔍 Find Now →
-    </button>
-  </form>
+  <div id="connecttext">
+    <a href="{{ url_for('login') }}" class="connect-btn">
 
-  {% with messages = get_flashed_messages() %}
-    {% for msg in messages %}
-      <p class="flash-msg">{{ msg }}</p>
-    {% endfor %}
-  {% endwith %}
+      🚀 Connect with Uber
+    </a>
+  </div>
+</div>
+{% endif %}
+<div id="formsinit">
+  <div>
+<form method="POST" action="{{ url_for('results') }}">
+  <input name="pickup" placeholder="Pickup Address" type="text" id="pickup_address" autocomplete="on" required="">
+  <div id="pickup_suggestions" class="autocomplete-suggestions"></div>
+
+  <input name="drop" placeholder="Drop address" type="text" id="drop_address" autocomplete="on" required="">
+  <div id="drop_suggestions" class="autocomplete-suggestions"></div>
+      <script>
+        const API_KEY = geocode-api-key; 
+
+        function setupAutocomplete(inputId, suggestionBoxId) {
+            const input = document.getElementById(inputId);
+            const box = document.getElementById(suggestionBoxId);
+
+            input.addEventListener('input', async () => {
+                const query = input.value.trim();
+                if (query.length < 3) {
+                    box.innerHTML = '';
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`https://geocode.maps.co/search?q=${encodeURIComponent(query)}&api_key=${API_KEY}`);
+                    const data = await response.json();
+
+                    box.innerHTML = '';
+                    if (Array.isArray(data)) {
+                        data.slice(0, 5).forEach(item => {
+                            const div = document.createElement('div');
+                            div.textContent = item.display_name;
+                            div.addEventListener('click', () => {
+                                input.value = item.display_name;
+                                box.innerHTML = '';
+                            });
+                            box.appendChild(div);
+                        });
+                    }
+                } catch (e) {
+                    console.error("Autocomplete fetch error:", e);
+                }
+            });
+
+            // Hide suggestions if clicked outside
+            document.addEventListener('click', (e) => {
+                if (!box.contains(e.target) && e.target !== input) {
+                    box.innerHTML = '';
+                }
+            });
+        }
+
+        setupAutocomplete('pickup_address', 'pickup_suggestions');
+        setupAutocomplete('drop_address', 'drop_suggestions');
+    </script>
+     <br> <br> <br> <br> <br> <br> <br> <br> <br> <br><br> 
+     <button type="submit">
+       🔍 Find Now →
+      </button>
+    </div>
+    </form>
+  </div>
+</div>
+
+{% with messages = get_flashed_messages() %}
+{% for msg in messages %}
+<p class="flash-msg">{{ msg }}</p>
+{% endfor %}
+{% endwith %}
 {% endblock %}

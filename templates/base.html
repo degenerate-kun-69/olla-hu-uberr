@@ -1,11 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RideWise</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      display: block;
+
+    }
+    #pleasekillme {
+      display: block;
+      margin: 0 auto;
+      padding: 20px;
+      width: 80%;
+      height: 80%;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .connect-btn{
+      background-color: #6c5ce7;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 16px;
+    }
+    #connecttext{
+      font-size: 20px;
+      font-weight: bold;
+      display: flex;
+    padding-left: 40%;
+    }
+    #containconnecttext{
+      width: 100%;
+    
+      justify-content: center;
+      align-items: center;
+   
+    }
+
+    
+#formsinit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  height: 500px;
+}
+
+#formsinit form {
+  background: linear-gradient(to right, #dff5f2, #fce4ec);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+ 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 500px;
+  width: 800px;
+}
+
+#formsinit input {
+  width: 90%;
+  padding: 14px 20px;
+  margin: 10px 0;
+  font-size: 16px;
+  border-radius: 20px;
+  border: 1.5px solid #ccc;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+#formsinit input:focus {
+  border-color: #6ec6ff;
+  box-shadow: 0 0 6px rgba(110, 198, 255, 0.5);
+}
+
+#formsinit button {
+  margin-top: 10px;
+  padding: 12px 24px;
+  font-size: 16px;
+  background: linear-gradient(to right, #6a5acd, #00bcd4);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+#formsinit button:hover {
+  background: linear-gradient(to right, #5f4fb1, #0097a7);
+  transform: scale(1.03);
+
+    }
+    #sample-rides {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  padding: 20px;
+  border-radius: 12px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+#sample-rides h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+/*
+.ride-card {
+  display: flex;
+  align-items: center;
+  background-color: #eeff00;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  transition: border 0.3s ease;
+  cursor: pointer;
+}
+
+.ride-card:hover {
+  border: 2px solid #00cec9;
+  background-color: #00cec9;
+}
+*/
+.ride-card {
+  display: flex;
+  align-items: center;
+  background-color: #eeff00;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  transition: background-color 0.4s ease, border 0.4s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.ride-card:hover {
+  border: 2px solid #00cec9;
+  background-color: #00cec9;
+  transform: scale(1.02);
+}
+
+.ride-icon {
+  width: 60px;
+  height: 60px;
+  margin-right: 15px;
+}
+
+.ride-details {
+  flex: 1;
+}
+
+.ride-top {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.ride-bottom {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #4e4e4e;
+}
+
+.ride-desc {
+  display: block;
+}
+    .chart-container {
+            width: 80%;
+            margin: 2rem auto;
+            max-width: 1000px;
+               height: 100%;  /* Increased height */
+        }
+        canvas {
+            aspect-ratio: 16/9;
+        }
+  </style>
 </head>
+
 <body>
   <nav>
     <a href="{{ url_for('home') }}">🏠 Home</a>
@@ -13,13 +192,16 @@
     <a href="{{ url_for('contact') }}">📞 Contact Info</a>
     <a href="{{ url_for('sample_rides') }}">🚗 Sample Rides</a>
   </nav>
-  <main>
+  <main><div id="pleasekillme">
+
     {% with messages = get_flashed_messages() %}
-      {% for msg in messages %}
-        <div class="flash">{{ msg }}</div>
-      {% endfor %}
+    {% for msg in messages %}
+    <div class="flash">{{ msg }}</div>
+    {% endfor %}
     {% endwith %}
     {% block content %}{% endblock %}
+  </div>
   </main>
 </body>
+
 </html>

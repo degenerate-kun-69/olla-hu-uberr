@@ -1,6 +1,6 @@
 import os
 import requests
-from flask import Flask, redirect, request, session, url_for, render_template, flash
+from flask import Flask, jsonify, redirect, request, session, url_for, render_template, flash
 from dotenv import load_dotenv
 
 # ─── Load .env ───────────────────────────────────────────────
@@ -20,8 +20,9 @@ UBER_AUTH_URL = "https://login.uber.com/oauth/v2/authorize"
 UBER_TOKEN_URL = "https://login.uber.com/oauth/v2/token"
 
 # ─── Helper Functions ────────────────────────────────────────
+"""
 def geocode_address(address: str):
-    """Geocode address using maps.co API."""
+    """"""
     url = "https://geocode.maps.co/search"
     resp = requests.get(url, params={
         "q": address,
@@ -32,6 +33,32 @@ def geocode_address(address: str):
 
     try:
         data = resp.json()
+    except ValueError:
+        raise Exception("Geocoding error: Invalid JSON response")
+
+    if isinstance(data, list) and len(data) > 0:
+        lat = float(data[0]['lat'])
+        lon = float(data[0]['lon'])
+        return lat, lon
+    else:
+        raise Exception("Geocoding failed: No results found.")
+        """
+print("Geocoding API Key:", MAPSCO_API_KEY)
+def geocode_address(address):
+    """Convert address into latitude and longitude using Maps.co API."""
+    url = "https://geocode.maps.co/search"
+    params = {
+        "q": address,
+        "api_key": MAPSCO_API_KEY
+    }
+
+    response = requests.get(url, params=params)
+
+    if response.status_code != 200:
+        raise Exception(f"Geocoding API error: HTTP {response.status_code} - {response.text}")
+
+    try:
+        data = response.json()
     except ValueError:
         raise Exception("Geocoding error: Invalid JSON response")
 
@@ -113,7 +140,26 @@ def fetch_ola_prices(pickup, dropoff):
 def home():
     return render_template("index.html", is_connected=session.get("uber_access_token") is not None)
 
-
+@app.route('/autocomplete')
+def autocomplete():
+    query = request.args.get('q', '')
+    if not query:
+        return jsonify([])
+    
+    try:
+        response = requests.get(
+            "https://geocode.maps.co/search",
+            params={
+                "q": query,
+                "api_key": MAPSCO_API_KEY  # From environment
+            }
+        )
+        response.raise_for_status()
+        return jsonify(response.json()[:5])  # Return first 5 results
+    except Exception as e:
+        print(f"Geocoding error: {e}")
+        return jsonify([])
+    
 @app.route("/login")
 def login():
     return redirect(

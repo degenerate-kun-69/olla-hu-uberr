@@ -30,7 +30,9 @@ body {
   
   main {
     padding: 2rem;
-    max-width: 800px;
+ width: 1800px;
+ height: 100vh;
+
     margin: auto;
   }
   
@@ -86,4 +88,97 @@ body {
     margin-top: 1rem;
     border-radius: 10px;
   }
+  
+    :root {
+      --primary: #6c5ce7;
+      --primary-dark: #5649c0;
+      --secondary: #00cec9;
+      --dark: #2d3436;
+      --light: #f5f6fa;
+      --success: #00b894;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--dark);
+    }
+    
+    .container {
+      width: 90%;
+      max-width: 500px;
+      background: white;
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    
+    h1 {
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+    
+    .description {
+      color: #636e72;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+    
+    .option-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      cursor: pointer;
+    }
+    
+    .option-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      border-color: var(--primary);
+    }
+    
+    .option-title {
+      font-size: 1.3rem;
+      color: var(--primary-dark);
+      margin-bottom: 0.5rem;
+    }
+    
+    .option-description {
+      color: #636e72;
+      font-size: 0.95rem;
+    }
+    
+    .current-price {
+      background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    }
+    
+    .prediction {
+      background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+    }
+    
+    .icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    
+    footer {
+      margin-top: 2rem;
+      color: #636e72;
+      font-size: 0.9rem;
+    }
+  
     

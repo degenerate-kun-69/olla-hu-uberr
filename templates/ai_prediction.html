@@ -1,10 +1,75 @@
 {% extends "base.html" %}
 {% block content %}
 <h2>AI Price Prediction</h2>
-<p>Processing route analysis using machine learning models...</p>
-<div style="margin-top:2rem">
-  <strong>Predicted best price time slot:</strong> 5:00 PM - 6:30 PM<br>
+
+<div style="margin-top:2rem ;height: 400px; width: 100%;">
+ 
+   
+  <!--<strong>Predicted best price time slot:</strong> 5:00 PM - 6:30 PM<br>
   <strong>Expected surge:</strong> Low<br>
   <strong>Recommended provider:</strong> Ola Micro
+-->
+    <div class="chart-container">
+        <canvas id="priceChart"></canvas>
+    </div>
+
+    <script>
+        // Dataset from provided data
+        const rideData = {
+            labels: [
+                '00:00', '01:00', '02:00', '03:00', '04:00',
+                '05:00', '06:00', '07:00', '08:00', '09:00',
+                '10:00', '11:00', '12:00', '13:00', '14:00',
+                '15:00', '16:00', '17:00', '18:00', '19:00',
+                '20:00', '21:00', '22:00', '23:00'
+            ],
+            datasets: [{
+                label: 'Ride Price (¥)',
+                data: [
+                    400, 380, 350, 350, 360,
+                    400, 550, 850, 1200, 1000,
+                    800, 700, 650, 600, 600,
+                    620, 750, 1100, 1300, 1150,
+                    900, 750, 600, 500
+                ],
+                borderColor: '#4a90e2',
+                tension: 0.4,
+                fill: false
+            }]
+        };
+
+        // Chart configuration
+        const config = {
+            type: 'line',
+            data: rideData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Time of Day (Hour)'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Price (¥)'
+                        },
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        // Initialize chart
+        window.addEventListener('DOMContentLoaded', () => {
+            new Chart(
+                document.getElementById('priceChart'),
+                config
+            );
+        });
+    </script>
 </div>
 {% endblock %}

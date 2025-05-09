@@ -1,10 +1,75 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>Sample Ride Data</h2>
-<ul>
-  <li>🚗 Uber Go: ₹120 - ₹150 | Wait: 3 min</li>
-  <li>🚘 Ola Mini: ₹110 - ₹140 | Wait: 5 min</li>
-  <li>🚕 Uber Premier: ₹200 - ₹230 | Wait: 2 min</li>
-  <li>🚙 Ola Prime: ₹210 - ₹250 | Wait: 6 min</li>
-</ul>
+<!--<div id="sample-rides">
+
+  <h2>Sample Ride Data</h2>
+  <ul>
+    <li>🚗 Uber Go: ₹120 - ₹150 | Wait: 3 min</li>
+    <li>🚘 Ola Mini: ₹110 - ₹140 | Wait: 5 min</li>
+    <li>🚕 Uber Premier: ₹200 - ₹230 | Wait: 2 min</li>
+    <li>🚙 Ola Prime: ₹210 - ₹250 | Wait: 6 min</li>
+  </ul>
+</div>
+---------------------------------------------------------->
+<div id="sample-rides">
+  <h2>Rides we think you'll like</h2>
+  <div class="ride-card">
+    <img src="/static/icons/uber-go.jpg" alt="Uber Go" class="ride-icon">
+    <div class="ride-details">
+      <div class="ride-top">
+        <span class="ride-name">Uber Go</span>
+        <span class="ride-price">₹120 - ₹150</span>
+      </div>
+      <div class="ride-bottom">
+        <span>⏱ 3 min away</span>
+        <span class="ride-desc">Affordable compact rides</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ride-card">
+    <img src="/static/icons/ola-mini.jpg" alt="Ola Mini" class="ride-icon">
+    <div class="ride-details">
+      <div class="ride-top">
+        <span class="ride-name">Ola Mini</span>
+        <span class="ride-price">₹110 - ₹140</span>
+      </div>
+      <div class="ride-bottom">
+        <span>⏱ 5 min away</span>
+        <span class="ride-desc">Compact, cost-effective rides</span>
+      </div>
+    </div>
+  </div>
+      <div class="ride-card">
+      <img src="/static/icons/uber-premier.png" alt="Uber Premier" class="ride-icon">
+      <div class="ride-details">
+        <div class="ride-top">
+          <span class="ride-name">Uber Premier</span>
+          <span class="ride-price">₹200 - ₹230</span>
+        </div>
+        <div class="ride-bottom">
+          <span>⏱ 2 min away</span>
+          <span class="ride-desc">Premium rides with top drivers</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ride-card">
+      <img src="/static/icons/ola-prime.png" alt="Ola Prime" class="ride-icon">
+      <div class="ride-details">
+        <div class="ride-top">
+          <span class="ride-name">Ola Prime</span>
+          <span class="ride-price">₹210 - ₹250</span>
+        </div>
+        <div class="ride-bottom">
+          <span>⏱ 6 min away</span>
+          <span class="ride-desc">Spacious AC cabs with comfort</span>
+        </div>
+      </div>
+    </div>
+
+
+  <!-- Add more ride-card blocks similarly -->
+</div>
+
 {% endblock %}
